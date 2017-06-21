@@ -19,8 +19,7 @@ const extractSassPluginConfig = new ExtractTextPlugin({
 const ProvidePluginConfig = new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
-  // Reveal: 'reveal.js',
-  // head: 'reveal.js/lib/js/head.min.js'
+  Reveal: 'reveal.js',
 });
 
 const PLUGINS = [
@@ -30,7 +29,13 @@ const PLUGINS = [
   new CopyWebpackPlugin([
     { from: { glob: 'content/**/*' } }
   ]),
+  new CopyWebpackPlugin([
+    { from: { glob: '../node_modules/reveal.js' }, to: 'node_modules/reveal.js' }
+  ]),
   extractSassPluginConfig,
+  // new webpack.ProvidePlugin({
+  //   head: 'reveal.js/lib/js/head.min.js'
+  // }),
   ProvidePluginConfig
 ]
 
