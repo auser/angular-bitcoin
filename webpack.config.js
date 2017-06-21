@@ -19,8 +19,8 @@ const extractSassPluginConfig = new ExtractTextPlugin({
 const ProvidePluginConfig = new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
-  Reveal: 'reveal.js',
-  head: 'reveal.js/lib/js/head.min.js'
+  // Reveal: 'reveal.js',
+  // head: 'reveal.js/lib/js/head.min.js'
 });
 
 const PLUGINS = [
@@ -47,9 +47,10 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: '[name].[hash].js'
   },
-  externals: {
-    'reveal': 'Reveal'
-  },
+  // externals: {
+  //   'reveal': 'Reveal',
+  //   'head': 'head.js'
+  // },
   module: {
     loaders: [
       // { test: /\.css$/, loaders: ['style', 'css'] },

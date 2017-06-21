@@ -72,7 +72,7 @@ Suppose there is a large database and the contents are stored in a merkle tree w
 
 A user can look up a position in the database can ask for a Merkle proof. The user can verify it's correct and verify the correct position.
 
-----
+---
 
 Merkle proofs give us a way of verifying a small amount of data in a hash, which can be combined to an unbounded set of data (when combined).
 
