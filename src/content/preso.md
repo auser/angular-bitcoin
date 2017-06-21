@@ -17,15 +17,56 @@
 
 ---
 
-![](images/picture_of_ginger.png)
+![](images/ginger.png)
 
 ---
 
-Let's talk about the Blockchain
+### part-theory/part-code
 
 ---
 
-<!-- .slide: data-background="#abbca0" -->
+### What are we talking about?
+
+---
+
+Building your **own cryptocurrency** and **visualizing** it through an Angular app!
+
+---
+
+## Have you heard of bitcoin?
+
+---
+
+## Have you heard of the blockchain?
+
+---
+
+Bitcoin is **powered** by the Blockchain
+
+---
+
+## What is the blockchain?
+
+---
+
+Although it sounds fancy...
+
+---
+
+The blockchain is just an
+
+## ordered ledger of facts
+
+---
+
+... that is cleverly distributed across a peer-to-peer network of untrusted nodes around the world, that attempts to solve difficult computer science problems such as reconciliation and distributed consensus.
+
+---
+
+### How does it work?
+
+---
+
 ## Merkle trees
 
 ---
@@ -34,7 +75,11 @@ Let's talk about the Blockchain
 
 ---
 
-A Merkle tree refers to a way to hash a large amount of data
+A Merkle tree refers to a way to store and hash a large amount of data.
+
+---
+
+<div id="treea" class="tree"></div>
 
 ---
 

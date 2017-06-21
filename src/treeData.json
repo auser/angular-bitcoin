@@ -1,0 +1,19 @@
+  {
+    "name": "Root",
+    "index": 0,
+    "children": [
+      {
+		"name": "A",
+    "index": 1,
+        "children": [
+          { "name": "B", "index": 2 },
+          { "name": "C", "index": 3 }
+        ]
+      },
+      { "name": "D", "index": 4 },
+      { "name": "E", "index": 5,
+        "children":[
+          { "name": "F", "index": 6 }
+        ] }
+    ]
+  }

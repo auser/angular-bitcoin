@@ -54,7 +54,19 @@ module.exports = {
   module: {
     loaders: [
       // { test: /\.css$/, loaders: ['style', 'css'] },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader']
+      },
+      { test: /\.json$/, loaders: ['json-loader'] },
       { test: /\.(eot|svg|ttf|woff|woff2)$/, loaders: ['file-loader'] },
+      {
+        test: /\.png$/,
+        use: [
+          { loader: 'file-loader' },
+        ],
+      },
       {
         test: /\.(scss|css)$/,
         exclude: '/node_modules/',
@@ -70,7 +82,7 @@ module.exports = {
             {
               loader: 'sass-loader',
               options: {
-                includePaths: [node_modules_path]
+                includePaths: [node_modules_path, path.join(__dirname, 'src')]
               }
             },
           ],

@@ -1,4 +1,173 @@
 @import url('~reveal.js/css/reveal.css');
 @import url('~reveal.js/css/theme/moon.css');
 @import url('~highlight.js/styles/atom-one-dark.css');
-@import url('./styles.scss');
+
+.reveal {
+  .slides {
+    text-align: left;
+  }
+  pre {
+    width: 100%;
+    font-size: 0.8em;
+
+    code {
+      max-height: 800px;
+    }
+  }
+}
+
+.bob h2 {
+  color: red;
+}
+
+$border-width: 1px;
+$reverse: true;
+$border-radius: 2px;
+
+$dark: #2E282A;
+$blue: #17BEBB;
+$orange: #E4572E;
+$yellow: #FFC914;
+$green: #76B041;
+$darkblue: #29335C;
+
+$height: 0.5em;
+
+$highlight: rgba(255, 102, 163, 1.000);
+$inverse-highlight: white;
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tree {
+  .node rect, .node circle {
+    fill: $blue;
+  }
+
+  .node text {
+    font: 18px sans-serif;
+    fill: $dark;
+  }
+
+  .node--internal circle {
+    fill: $orange;
+  }
+
+  .node--internal text {
+    fill: white;
+  }
+
+  .link {
+    fill: none;
+    stroke: #efefef;
+    stroke-opacity: 0.4;
+    stroke-width: 1.5px;
+  }
+  // @if $reverse {
+    // transform: rotate(180deg);
+    // transform-origin: 50%;
+  // }
+  // ul {
+  //   position: relative;
+  //   top: 0;
+  //   padding: $height 0;
+  //   white-space: nowrap;
+  //   margin: 0 auto;
+  //   text-align: center;
+  //   &::after {
+  //     content: '';
+  //     display: table;
+  //     clear: both;
+  //   }
+  //   li {
+  //     display: inline-block;
+  //     vertical-align: top;
+  //     text-align: center;
+  //     list-style-type: none;
+  //     position: relative;
+  //     padding: $height 0 0 .25em;
+
+  //     .root { background-color: $blue;}
+  //     .b { background-color: $orange;}
+  //     .c { background-color: $yellow;}
+  //     .d { background-color: $green; }
+  //     .e { background-color: $dark; }
+  //     .f { background-color: $darkblue; }
+  //     .g { background-color: $darkblue; display: none; }
+
+  //     &::before, &::after {
+  //       content: '';
+  //       position: absolute;
+  //       top: 0;
+  //       right: 50%;
+  //       border-top: $border-width solid #ccc;
+  //       width: 50%;
+  //       height: $height;
+  //     }
+  //     &::after {
+  //       right: auto;
+  //       left: 50%;
+  //       border-left: $border-width solid #ccc;
+  //     }
+  //     &:only-child::after, &:only-child::before {
+  //       display: none;
+  //     }
+  //     &:only-child {
+  //       padding-top: 0;
+  //     }
+  //     &:first-child::before, &:last-child::after {
+  //       border: 0 none;
+  //     }
+  //     &:last-child::before {
+  //       border-right: $border-width solid #ccc;
+  //       border-radius: 0 $border-radius 0 0;
+  //     }
+  //     &:first-child::after {
+  //       border-radius: $border-radius 0 0 0;
+  //     }
+
+  //     a {
+  //       border: $border-width solid #ccc;
+  //       padding: $height .75em;
+  //       text-decoration: none;
+  //       display: inline-block;
+  //       border-radius: $border-radius;
+  //       color: $inverse-highlight;
+  //       position: relative;
+  //       top: $border-width;
+  //       @if $reverse {
+  //         transform: rotate(180deg);
+  //       }
+
+  //       &:hover, &:hover + ul li a {
+  //         background: $highlight;
+  //         color: $inverse-highlight;
+  //         border: $border-width solid $highlight;
+  //       }
+
+  //       &:hover + ul li::after,
+  //       &:hover + ul li::before,
+  //       &:hover + ul::before,
+  //       &:hover + ul ul::before {
+  //         border-color: $highlight;
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+// .tree ul ul::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 50%;
+//   border-left: $border-width solid #ccc;
+//   width: 0;
+//   height: $height;
+// }
