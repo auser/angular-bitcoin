@@ -6,7 +6,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
-let node_modules_path = path.resolve(__dirname, '../../../', 'node_modules');
+let node_modules_path = path.resolve(__dirname, './', 'node_modules');
 
 
 const env = process.env.NODE_ENV || 'development'
@@ -28,7 +28,7 @@ const PLUGINS = [
     template: './index.html'
   }),
   new CopyWebpackPlugin([
-    { from: { glob: 'content/*.md' } }
+    { from: { glob: 'content/**/*' } }
   ]),
   extractSassPluginConfig,
   ProvidePluginConfig
@@ -45,6 +45,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
+    publicPath: dev ? 'http://localhost:8081/' : '/',
     filename: '[name].[hash].js'
   },
   // externals: {
@@ -63,6 +64,7 @@ module.exports = {
       { test: /\.(eot|svg|ttf|woff|woff2)$/, loaders: ['file-loader'] },
       {
         test: /\.png$/,
+        include: path.join(__dirname, 'src'),
         use: [
           { loader: 'file-loader' },
         ],

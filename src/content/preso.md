@@ -17,7 +17,7 @@
 
 ---
 
-<!--![](./images/ginger.png)-->
+![](content/images/ginger.png)
 
 ---
 
@@ -315,3 +315,288 @@ What kind of things can we do?
 
 ## Let's make one!
 
+---
+
+Using a TypeScript-like language called
+
+---
+
+### Solidity
+
+---
+
+```javascript
+pragma solidity ^0.4.10
+
+contract NGCoin {
+	mapping (address => uint) balances;
+
+	function NGCoin() {
+		balances[tx.origin] = 10000;
+	}
+}
+
+```
+
+---
+
+### Doesn't do much
+
+just keeps 10000 shares in a single account
+
+---
+
+## Let's get the balance
+
+---
+
+```typescript
+contract NGCoin {
+  function getBalance(address addr) returns(uint) {
+      return balances[addr];
+  }
+}
+```
+
+---
+
+How do we integrate this with a blockchain?
+
+---
+
+We need to compile it and share it with the blockchain
+
+---
+
+Let's start a private network using a tool called `testrpc`
+
+---
+
+```bash
+$ testrpc --blocktime 2
+```
+
+---
+
+With our blockchain, let's compile our contract (using a tool called `truffle`)
+
+---
+
+```bash
+truffle compile
+```
+
+---
+
+And add it to the blockchain
+
+---
+
+```bash
+truffle migrate
+```
+
+---
+
+## Let's get to Angular
+
+---
+
+```bash
+$ ng new ngwallet
+```
+
+---
+
+## Interact with the Blockchain
+
+---
+
+We'll work with the blockchain through a module called `web3`
+
+---
+
+```typescript
+import { Injectable } from '@angular/core';
+
+import * as Web3 from 'web3'
+import * as contract from 'truffle-contract'
+
+@Injectable()
+export class Web3Service {
+  public web3: any;
+  public account: any;
+}
+```
+
+---
+
+## Connecting to blockchain
+
+---
+
+```typescript
+export class Web3Service {
+  constructor() {
+    // Define connection
+    const provider = new Web3.providers
+    .HttpProvider("http://localhost:8545")
+    // Connect
+    this.web3 = new Web3(provider);
+  }
+}
+```
+
+---
+
+## Get our account
+
+---
+
+```typescript
+export class Web3Service {
+  async getAccount(i?:number) {
+    if (!this.account) {
+      const accounts = await this.getAccounts();
+      i = i || 0;
+      this.account = accounts[i];
+    }
+    return this.account;
+  }
+}
+```
+
+---
+
+## Let's check out balance
+
+---
+
+```bash
+ng g service metacoin
+```
+
+---
+
+```typescript
+import { Injectable } from '@angular/core';
+import { Web3Service } from '../services/web3.service'
+import * as contract from 'truffle-contract'
+
+const metacoinArtifacts =
+  require('./build/contracts/MetaCoin.json')
+@Injectable()
+export class MetacoinService {
+  public MetaCoin = contract(metacoinArtifacts)
+}
+```
+
+---
+
+## Hooking up the two
+
+---
+
+```typescript
+export class MetacoinService {
+  constructor(
+    private web3: Web3Service
+  ) {
+    this.MetaCoin.setProvider(this.web3.currentProvider());
+  }
+}
+```
+
+---
+
+## Checking our balance
+
+---
+
+
+```typescript
+export class MetacoinService {
+  async getBalance() {
+    const metaCoin = await this.MetaCoin.deployed();
+    const account = await this.web3.getAccount();
+    const balance = await metaCoin
+        .getBalance.call(account, { from: this.account })
+    return balance;
+  }
+}
+```
+
+---
+
+![](content/images/screenshot_balance.png)
+
+---
+
+## Let's add transactions
+
+---
+
+### Back to the smart contract
+
+---
+
+```typescript
+contract MetaCoin {
+  mapping (address => uint) balances;
+  // ...
+  function sendCoin(address receiver, uint amount)
+    returns(bool sufficient) {
+      // Make sure we have enough
+      if (balances[msg.sender] < amount) return false;
+      balances[msg.sender] -= amount;
+      balances[receiver] += amount;
+      return true;
+  }
+}
+```
+
+---
+
+## Simple, right?
+
+---
+
+We can call this directly in Angular
+
+---
+
+## Metacoin service
+
+```typescript
+export class MetacoinService {
+  transaction(addr: string, amount: number) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const deployed = await this.MetaCoin.deployed();
+        const from = await this.web3.getAccount();
+        const total = amount
+        resolve(deployed
+          .sendCoin(addr, total, { from }))
+      } catch (e) {
+        reject(e);
+      }
+    })
+  }
+}
+```
+
+---
+
+![](content/images/sent.png)
+
+---
+
+Finally, we can list transactions
+
+---
+
+![](content/images/transactions.png)
+
+---
+
+## Thanks

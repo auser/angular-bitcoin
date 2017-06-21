@@ -1,14 +1,17 @@
 import Reveal from 'reveal.js';
 import marked from 'marked'
 
-var libPath = '../node_modules/reveal.js/';
+const libPath = '../node_modules/reveal.js/';
+
+// require(libPath + 'plugin/highlight/languages/' + 'bash.js')
 
 Reveal.initialize({
   width: '100%',
   height: '100%',
-  history: true,
+  // history: true,
   transition: 'none',
   progress: false,
+  pdfMaxPagesPerSlide: 1,
   markdown: {
     renderer: new marked.Renderer(),
     gfm: true,
