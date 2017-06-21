@@ -79,7 +79,7 @@ A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
 
-<div id="treea" class="tree"></div>
+<svg id="treea" class="tree"></svg>
 
 ---
 

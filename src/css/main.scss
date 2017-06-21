@@ -48,6 +48,7 @@ $inverse-highlight: white;
 .tree {
   .node rect, .node circle {
     fill: $blue;
+    rounding: 5px;
   }
 
   .node text {

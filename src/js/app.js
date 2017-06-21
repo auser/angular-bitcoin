@@ -6,5 +6,10 @@ const treeData = require('../treeData.json')
 
 Reveal.addEventListener( 'ready', function( event ) {
   const mount = document.querySelector('#treea')
-  pathGraph(mount, treeData)
+  const updateData = pathGraph(mount, treeData)
+
+  mount.addEventListener('click', function(evt) {
+    treeData.children[2].children.push({ name: "H" })
+    updateData(treeData, { update: true })
+  })
 });
