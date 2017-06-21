@@ -17,7 +17,7 @@
 
 ---
 
-![](images/ginger.png)
+<!--![](./images/ginger.png)-->
 
 ---
 
@@ -75,6 +75,38 @@ The blockchain is just an
 
 ---
 
+Before we get there, let's talk about **hashes**
+
+---
+
+A hash is a function that can be used to map data of arbitrary size to a data of fixed size. You give it data and it gives you _random_ data of a consistent length.
+
+---
+
+* Any input
+* Same-length output
+* Unlikely collision events (two inputs to share an output)
+
+---
+
+## Allows us to quickly prove data is real
+
+---
+
+<!-- .slide: data-state="hashes" -->
+
+SHA1 examples:
+
+<div id="output"></div>
+
+---
+
+## Given a few items
+
+We can hash a few items together and hash it again... We can create a merkle tree...
+
+---
+
 A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
@@ -83,19 +115,7 @@ A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
 
-Each datum is split into buckets which stores a small amount of data where we take the hash of each bucket and then hash the remaining.
-
----
-
-At the end, we get _one_ root hash
-
----
-
-A simple merkle tree is the binary merkle tree where a bucket _always_ contains two adjacent chunks.
-
----
-
-Okay, why split and not just hash all the data?
+Given the root hash, when we change one file, it changes the resulting color... given a root hash, we can prove if anything is updated/changed.
 
 ---
 
@@ -107,15 +127,11 @@ Merkle proofs consist of a chunk, the root hash, and the branch consisting of al
 
 ---
 
-Merkle proofs allow us to **verify** the hashing (for the branch) is consistent all the way up the tree and allows us to **prove** the chunk is in the right spot.
-
----
-
 Suppose there is a large database and the contents are stored in a merkle tree where the root hash is public and trusted.
 
 ---
 
-A user can look up a position in the database can ask for a Merkle proof. The user can verify it's correct and verify the correct position.
+We can look up a position in the database can ask for a Merkle proof.
 
 ---
 
@@ -123,11 +139,23 @@ Merkle proofs give us a way of verifying a small amount of data in a hash, which
 
 ---
 
-## What? Why?
+Ever use git?
 
 ---
 
-Okay, so Bitcoin (and variants) are built on this Merkle proof idea.
+You're using a merkle tree!
+
+---
+
+We have _all_ the files in our project, we can checkout a hash at any point in history, we can check out just a single file, etc. etc. We can see the _one-line_ difference. We can _prove_ we're only changing a single line.
+
+---
+
+## Blockchains
+
+---
+
+When we add or update a node, we can prove this at any point.
 
 ---
 
@@ -135,7 +163,7 @@ It matters because...
 
 ---
 
-The benefit it provides allows us to download a small amount of data instead of every single transaction (which could be infinite... not literally).
+This provides a way for us to download a small amount of data instead of every single transaction (which could be infinite... not literally).
 
 ---
 
@@ -143,11 +171,44 @@ Instead, a small, lightweight client can download a chain of block headers which
 
 ---
 
-* Hash of the previous header
-* A mining difficulty value
-* A nonce (proof of work)
-* Timestamp
-* A root hash for the tree
+As long as we have a way to get the root hash, we can _prove_ the data.
+
+---
+
+1. Get data
+2. Hash it together
+
+---
+
+## Bitcoin
+
+A list of transactions.
+
+---
+
+We can _always_ know the order which the transactions occurred (to avoid double-pay bug).
+
+---
+
+We have blocks of transactions at a certain time, we know the order.
+
+---
+
+* blocks are added (mined) over time
+* Nodes take turns adding blocks
+* The root checksum starts with a number of zeros (0)
+* A `nonce` (allows us to create new checksums)
+* Difficulty can be changed.
+
+---
+
+Who gets to add another block? A proof of work consensus protocol where computers race to finish a really hard problem.
+
+---
+
+```
+// Insert details here (just kidding)
+```
 
 ---
 
@@ -155,11 +216,18 @@ With these pieces of data, it can compute the Merkle proof to verify the state o
 
 ---
 
-## Bitcoin on my front-end?
+Distributed systems are designed to prevent any single computer to get too much power
 
 ---
 
-Does this Bitcoin make me look fat?
+## Mining (consensus)
+
+---
+
+* Miners are computers that work on a really hard problem.
+* The computer that solves the problem is _rewarded_ (coins/tokens/eth)
+* In addition, that computer wins the transction fees
+* Incentivizes users to pay fees depending on urgency
 
 ---
 
@@ -171,63 +239,79 @@ How many bitcoins do you have _right now_?
 
 ---
 
-Tough bubbles, every hash on the entire blockchain needs to be downloaded to get this value
+Every hash on the entire blockchain needs to be downloaded to get this value
 
 ---
 
-Instead, let's look at the "next-gen" version of Bitcoin.
+Instead, let's look at the _next-gen_ version of Bitcoin.
 
 ---
 
-Ethereum
+## Ethereum
 
 ---
 
-In Ethereum, every block has a header that contains _three_ trees for three different objects:
+Merkle trees are great for lists, but not so great for key-value pairs (think JSON objects). The state of the ethereum blockchain is essentially an object where keys are addresses and values are amount declarations using a Patricia-Merkle tree.
 
 ---
 
-* Transactions
-* Receipts
-* State
+Instead of transactions, Ethereum records computer operations.
 
 ---
 
-These features allow us to get and verify lots of different kinds of questions
+We can track any state changes. From this, we get a hash (and we're back to the Merkle tree)
 
 ---
 
-* Has a transaction been included?
-* Query all the instances of an event of type
-* What is the _current balance_ of an account?
-* What would the output be of a transaction in the blockchain?
+Blocks of operations contain:
+
+* Reward paid
+* Time of transaction
+* List of transactions
+* Gas (fee)
+* Hash
+* ...
 
 ---
 
-These are binary merkle trees which are great for lists, but not so great for key-value pairs (think JSON objects). The state of the ethereum blockchain is essentially an object where keys are addresses and values are amount declarations.
+Each interaction is cryptographically signed (a transaction) by the user and using this, we can interact with a program called **smart contracts**.
 
 ---
 
-This state needs to be updated a lot, so instead of an immutable binary tree, ethereum allows us to quickly compute the new tree root after modifications without needing to recompute the entire tree.
+Note, we have to pay for each interaction
 
 ---
 
-* Also the depth of the tree is bounded (security)
-* The root of the tree depends on data, not order (unlike bitcoin)
+## Smart contracts
 
 ---
 
-The Patricia-Merkle tree allows a key under which a value is stored is encoded into the _path_ that we have to take down the tree.
-
-Each node has 16 children, so the path is determined by it's hex encoding.
+Programs that live in the blockchain
 
 ---
 
-The differences of a radix tree and ethereum:
+Contracts can:
 
-* Nodes are referenced by hashes (the cryptographic fingerprint of the previous nodes)
-* Different types of nodes
-* Branch nodes have lists of length 17, where the first 16 elements are the 16 possible hex characters and the final element holds a value where the key ends and the branch node.
+* Send ether from one account to another
+* We can create side-effects
+* Voting
+* Complex rules
+* we have a LOT of flexibility
 
 ---
+
+All these operations are public
+
+---
+
+What kind of things can we do?
+
+* Crowdfunding
+* Personal lending
+* Ownership
+* Transparent governance
+
+---
+
+## Let's make one!
 

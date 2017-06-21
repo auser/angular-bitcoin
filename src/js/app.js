@@ -1,7 +1,8 @@
 import d3 from 'd3'
 import { pathGraph } from './path-graph'
-// import React from 'react'
-// import ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 const treeData = require('../treeData.json')
 
 Reveal.addEventListener( 'ready', function( event ) {
@@ -10,6 +11,6 @@ Reveal.addEventListener( 'ready', function( event ) {
 
   mount.addEventListener('click', function(evt) {
     treeData.children[2].children.push({ name: "H" })
-    updateData(treeData, { update: true })
+    updateData(treeData)
   })
 });

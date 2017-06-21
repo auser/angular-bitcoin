@@ -1,4 +1,5 @@
 import Reveal from 'reveal.js';
+import marked from 'marked'
 
 var libPath = '../node_modules/reveal.js/';
 
@@ -6,9 +7,18 @@ Reveal.initialize({
   width: '100%',
   height: '100%',
   history: true,
-  theme: 'black',
   transition: 'none',
   progress: false,
+  markdown: {
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: true
+    },
   dependencies: [
     // Cross-browser shim that fully implements classList
     {

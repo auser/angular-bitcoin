@@ -2,6 +2,23 @@
 @import url('~reveal.js/css/theme/moon.css');
 @import url('~highlight.js/styles/atom-one-dark.css');
 
+$border-width: 1px;
+$reverse: true;
+$border-radius: 2px;
+
+$dark: #2E282A;
+$blue: #17BEBB;
+$orange: #E4572E;
+$red: red;
+$yellow: #FFC914;
+$green: #76B041;
+$darkblue: #29335C;
+
+$height: 0.5em;
+
+$highlight: rgba(255, 102, 163, 1.000);
+$inverse-highlight: white;
+
 .reveal {
   .slides {
     text-align: left;
@@ -14,27 +31,18 @@
       max-height: 800px;
     }
   }
+  table {
+    font-size: 0.7em;
+    tr {
+      td {
+      }
+    }
+  }
 }
 
 .bob h2 {
   color: red;
 }
-
-$border-width: 1px;
-$reverse: true;
-$border-radius: 2px;
-
-$dark: #2E282A;
-$blue: #17BEBB;
-$orange: #E4572E;
-$yellow: #FFC914;
-$green: #76B041;
-$darkblue: #29335C;
-
-$height: 0.5em;
-
-$highlight: rgba(255, 102, 163, 1.000);
-$inverse-highlight: white;
 
 @keyframes appear {
   0% {
