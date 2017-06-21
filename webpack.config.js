@@ -24,7 +24,12 @@ const ProvidePluginConfig = new webpack.ProvidePlugin({
 
 const PLUGINS = [
   new HtmlWebpackPlugin({
-    template: './index.html'
+    template: './index.html',
+    "files": {
+      "js": [
+        path.join(node_modules_path, "reveal.js/lib/js/head.min.js")
+      ]
+    }
   }),
   new CopyWebpackPlugin([
     { from: { glob: 'content/**/*' } }
@@ -46,6 +51,11 @@ if (dev) {
 module.exports = {
   context: path.join(__dirname, 'src'),
   entry: {
+    vendor: [
+      path.join(node_modules_path, 'reveal.js/lib/js/head.min.js'),
+      path.join(node_modules_path, 'reveal.js/js/reveal.js'),
+    ],
+    config: './js/config.js',
     app: './main.js',
   },
   output: {

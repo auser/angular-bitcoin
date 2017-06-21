@@ -1,4 +1,8 @@
+import 'reveal.js/lib/js/head.min.js'
+
 import Reveal from 'reveal.js';
+// HACK
+window.Reveal = Reveal
 import marked from 'marked'
 
 const libPath = '../node_modules/reveal.js/';
@@ -8,7 +12,7 @@ const libPath = '../node_modules/reveal.js/';
 Reveal.initialize({
   width: '100%',
   height: '100%',
-  // history: true,
+  history: true,
   transition: 'none',
   progress: false,
   pdfMaxPagesPerSlide: 1,

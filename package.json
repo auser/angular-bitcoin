@@ -1,12 +1,12 @@
 {
   "name": "webpack-workshop-slides",
   "version": "1.0.0",
-  "description": "Slides for the Webpack Workshop",
+  "description": "Slides for the Angular",
   "main": "dist/bundle.js",
   "repository": {},
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && webpack",
+    "build": "npm run clean && NODE_ENV=production webpack",
     "start": "webpack-dev-server"
   },
   "keywords": [],

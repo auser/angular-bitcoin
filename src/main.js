@@ -39,5 +39,4 @@ Reveal.addEventListener( 'hashes', function() {
 }, false );
 
 
-import './js/config.js';
 import './js/app.js';
