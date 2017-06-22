@@ -65,13 +65,25 @@ The blockchain is just an
 
 ### How does it work?
 
+(aka, let's peek under the hood)
+
+---
+
+* distributed in a p2p network
+* incentivize untrusted nodes
+* consensus
+
+---
+
+## Distributed in a p2p network
+
+---
+
+We need a way to confirm transactions in a proveable way on unstrustworthy nodes
+
 ---
 
 ## Merkle trees
-
----
-
-## What the hell are merkle trees and why do I care?
 
 ---
 
@@ -79,7 +91,9 @@ Before we get there, let's talk about **hashes**
 
 ---
 
-A hash is a function that can be used to map data of arbitrary size to a data of fixed size. You give it data and it gives you _random_ data of a consistent length.
+A hash is a function that can be used to map data of arbitrary size to data of fixed size.
+
+Input => random data of fixed length
 
 ---
 
@@ -101,9 +115,13 @@ SHA1 examples:
 
 ---
 
-## Given a few items
+## Merkle tree
 
-We can hash a few items together and hash it again... We can create a merkle tree...
+With some extra information, we can hash them all together and hash them again to create a Merkle tree.
+
+---
+
+## What the heck is a Merkle Tree?
 
 ---
 
@@ -111,19 +129,19 @@ A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
 
+With a large number of _chunks of data_ split into buckets where each _bucket_ contains a little amount of data, taking the hash of each bucket up the tree gives us a root hash.
+
+---
+
 <svg id="treea" class="tree"></svg>
 
 ---
 
-Given the root hash, when we change one file, it changes the resulting color... given a root hash, we can prove if anything is updated/changed.
+Given the root hash, when we change one file, it changes the entire branch given a root hash, we can verify any updates/changes.
 
 ---
 
-Merkle proofs
-
----
-
-Merkle proofs consist of a chunk, the root hash, and the branch consisting of all the hashes that go with the rest of the branch to the root.
+### Merkle proof
 
 ---
 
@@ -131,11 +149,11 @@ Suppose there is a large database and the contents are stored in a merkle tree w
 
 ---
 
-We can look up a position in the database can ask for a Merkle proof.
+We can look up a position in the database and verify it's trustworthy.
 
 ---
 
-Merkle proofs give us a way of verifying a small amount of data in a hash, which can be combined to an unbounded set of data (when combined).
+We can _authenticate_ a small amount is real.
 
 ---
 
@@ -163,7 +181,7 @@ It matters because...
 
 ---
 
-This provides a way for us to download a small amount of data instead of every single transaction (which could be infinite... not literally).
+This provides a way for us to download a small amount of data instead of every single transaction (which could be infinite...) even on untrusted nodes.
 
 ---
 
@@ -175,30 +193,51 @@ As long as we have a way to get the root hash, we can _prove_ the data.
 
 ---
 
-1. Get data
-2. Hash it together
+## incentivize untrusted nodes
 
 ---
 
-## Bitcoin
-
-A list of transactions.
+## aka mining
 
 ---
 
-We can _always_ know the order which the transactions occurred (to avoid double-pay bug).
+Give each computer playing a part in the network a reason to participate.
 
 ---
 
-We have blocks of transactions at a certain time, we know the order.
+Every node in the network is essentially racing to complete a very difficult, random-ish math problem.
 
 ---
 
-* blocks are added (mined) over time
-* Nodes take turns adding blocks
-* The root checksum starts with a number of zeros (0)
-* A `nonce` (allows us to create new checksums)
-* Difficulty can be changed.
+I'll spare you the gritty details
+
+---
+
+When a node successfully completes the problem and submits it to the network, it is rewarded and every nodes starts over again to get to the next one.
+
+---
+
+Mining gives everyone who participates in the network a reason to be involved.
+
+---
+
+Additionally, it incentivizes users to pay a transaction fee to get work done.
+
+---
+
+## Consensus
+
+---
+
+There needs to be a way for nodes to know what data is valid...
+
+---
+
+When the problem is solved, it's broadcasted across the network for each node to merkle-proof the theory.
+
+---
+
+Each node accepts or rejects the transaction of the entire tree and the node becomes the next canonical node.
 
 ---
 
@@ -206,13 +245,7 @@ Who gets to add another block? A proof of work consensus protocol where computer
 
 ---
 
-```
-// Insert details here (just kidding)
-```
-
----
-
-With these pieces of data, it can compute the Merkle proof to verify the state of a transaction on the blockchain
+Each node can compute the Merkle proof to verify the state of a transaction on the blockchain
 
 ---
 
@@ -220,14 +253,7 @@ Distributed systems are designed to prevent any single computer to get too much 
 
 ---
 
-## Mining (consensus)
-
----
-
-* Miners are computers that work on a really hard problem.
-* The computer that solves the problem is _rewarded_ (coins/tokens/eth)
-* In addition, that computer wins the transction fees
-* Incentivizes users to pay fees depending on urgency
+## So what's next? Where are the bugs?
 
 ---
 
@@ -416,6 +442,16 @@ We'll work with the blockchain through a module called `web3`
 
 ---
 
+## How?
+
+---
+
+## RPC
+
+Blockchain tools, like `testrpc` implement an RPC protocol that we can talk to with other languages. `web3` is a JavaScript implementation of ethereum.
+
+---
+
 ```typescript
 import { Injectable } from '@angular/core';
 
@@ -509,7 +545,7 @@ export class MetacoinService {
 
 ---
 
-## Checking our balance
+## Checking our balance in TypeScript
 
 ---
 
@@ -517,8 +553,11 @@ export class MetacoinService {
 ```typescript
 export class MetacoinService {
   async getBalance() {
+    // Get the coin instance
     const metaCoin = await this.MetaCoin.deployed();
-    const account = await this.web3.getAccount();
+    // Get the root account
+    const account = await this.web3.getAccount(0);
+    // Get the balance (costs nothing)
     const balance = await metaCoin
         .getBalance.call(account, { from: this.account })
     return balance;
@@ -544,14 +583,17 @@ export class MetacoinService {
 contract MetaCoin {
   mapping (address => uint) balances;
   // ...
-  function sendCoin(address receiver, uint amount)
-    returns(bool sufficient) {
-      // Make sure we have enough
-      if (balances[msg.sender] < amount) return false;
-      balances[msg.sender] -= amount;
-      balances[receiver] += amount;
-      return true;
-  }
+	function sendCoin(address _to, uint _value) {
+    // Check if the sender has enough
+    // and that there is no room for overflow
+    if (balances[msg.sender] < _value ||
+        balances[_to] + _value < balances[_to]) {
+        throw;
+    }
+    // Add and subtract balances
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+	}
 }
 ```
 
@@ -572,11 +614,12 @@ export class MetacoinService {
   transaction(addr: string, amount: number) {
     return new Promise(async (resolve, reject) => {
       try {
+        // Get the contract instance
         const deployed = await this.MetaCoin.deployed();
         const from = await this.web3.getAccount();
-        const total = amount
-        resolve(deployed
-          .sendCoin(addr, total, { from }))
+        // Send the coin (async)
+        resolve(
+          deployed.sendCoin(addr, amount, { from }))
       } catch (e) {
         reject(e);
       }
@@ -591,11 +634,98 @@ export class MetacoinService {
 
 ---
 
-Finally, we can list transactions
+## Events
 
 ---
 
-![](content/images/transactions.png)
+How do we update the balance of the contract in our front-end?
+
+---
+
+One convenient feature of Ethereum are the events that are thrown in our Smart Contract.
+
+---
+
+We want to notify the client when the transaction is complete.
+
+---
+
+In our Smart Contract, we can trigger an event
+
+---
+
+```typescript
+contract MetaCoin {
+  mapping (address => uint) balances;
+  // ...
+	function sendCoin(address _to, uint _value) {
+    // Check if the sender has enough
+    // and that there is no room for overflow
+    if (balances[msg.sender] < _value ||
+        balances[_to] + _value < balances[_to]) {
+        throw;
+    }
+    // Add and subtract balances
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+
+    // Notify that the transfer took place
+    Transfer(msg.sender, _to, _value);
+	}
+}
+```
+
+---
+
+Our client registers a listener to these events
+
+---
+
+```typescript
+this.MetaCoin.deployed()
+  .then(async metaCoin => {
+    // Register a listener for the Transfer event
+    metaCoin.allEvents((err, evt) => {
+      if (evt && evt.event === 'Transfer') {
+
+        // Update the balance
+        this.getBalance()
+      }
+    })
+  })
+```
+
+---
+
+Now we have a reactive front-end... sound familiar?
+
+---
+
+Connecting it through RxJS:
+
+---
+
+```typescript
+export class MetacoinService {
+  private _balance = <BehaviorSubject<any>>new BehaviorSubject(0);
+  public balance = this._balance.asObservable();
+  // ...
+
+  async getBalance() {
+    // ...
+    this._balance.next(balance)
+    return balance;
+  }
+}
+```
+
+---
+
+A perfect pair!
+
+---
+
+## Questions?
 
 ---
 

@@ -11,7 +11,11 @@
       { "name": "D" },
       { "name": "E",
         "children":[
-          { "name": "F"}
+          { "name": "F",
+            "children":[
+              { "name": "G" }
+            ]
+          }
         ] }
     ]
   }

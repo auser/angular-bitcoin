@@ -1,6 +1,6 @@
-@import url('~reveal.js/css/reveal.css');
-@import url('~reveal.js/css/theme/moon.css');
-@import url('~highlight.js/styles/monokai.css');
+// @import url('~reveal.js/css/reveal.css');
+// @import url('~reveal.js/css/theme/sky.css');
+// @import url('~highlight.js/styles/monokai.css');
 
 $border-width: 1px;
 $reverse: true;
@@ -29,11 +29,11 @@ $inverse-highlight: white;
   }
   pre {
     width: 100%;
-    font-size: 0.8em;
+    // font-size: 0.8em;
 
     code {
       max-height: 800px;
-      font-size: 0.6em;
+      font-size: 1.2em;
     }
   }
   table {

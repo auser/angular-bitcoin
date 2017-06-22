@@ -5,13 +5,15 @@ import Reveal from 'reveal.js';
 window.Reveal = Reveal
 import marked from 'marked'
 
+const srcPath = '../'
 const libPath = '../node_modules/reveal.js/';
 
 // require(libPath + 'plugin/highlight/languages/' + 'bash.js')
 
 Reveal.initialize({
-  width: '100%',
-  height: '100%',
+  // width: '100%',
+  // height: '100%',
+  center: true,
   history: true,
   transition: 'none',
   progress: false,
@@ -25,7 +27,7 @@ Reveal.initialize({
     sanitize: false,
     smartLists: true,
     smartypants: true
-    },
+  },
   dependencies: [
     // Cross-browser shim that fully implements classList
     {
@@ -58,6 +60,9 @@ Reveal.initialize({
         hljs.initHighlightingOnLoad();
       }
     },
+
+    // Math
+    // { src: libPath + 'plugin/math/math.js', async: true },
 
     // Zoom in and out with Alt+click
     { src: libPath + 'plugin/zoom-js/zoom.js', async: true },

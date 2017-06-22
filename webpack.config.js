@@ -53,7 +53,7 @@ module.exports = {
   entry: {
     vendor: [
       path.join(node_modules_path, 'reveal.js/lib/js/head.min.js'),
-      path.join(node_modules_path, 'reveal.js/js/reveal.js'),
+      path.join(node_modules_path, 'reveal.js/js/reveal.js')
     ],
     config: './js/config.js',
     app: './main.js',

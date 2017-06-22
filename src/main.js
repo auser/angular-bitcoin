@@ -20,7 +20,7 @@ Reveal.addEventListener( 'hashes', function() {
 
   const phrases = [
     'Hello world ',
-    'Hello Israel',
+    'Hello world!',
     'Ari'
   ]
   const messages = phrases.reduce((sum, phrase) => {
