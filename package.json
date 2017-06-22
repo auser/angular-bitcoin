@@ -1,14 +1,14 @@
 {
-  "name": "webpack-workshop-slides",
+  "name": "angular-blockchain-slides",
   "version": "1.0.0",
-  "description": "Slides for the Angular",
+  "description": "Slides for the Angular blockchain discussion",
   "main": "dist/bundle.js",
   "repository": {},
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && NODE_ENV=production webpack",
     "dev": "webpack-dev-server",
-    "start": "serve dist"
+    "start": "NODE_ENV=production serve dist"
   },
   "keywords": [],
   "author": "",
