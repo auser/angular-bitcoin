@@ -27,9 +27,20 @@ $inverse-highlight: white;
       background: transparent;
     }
 
+    .dark {
+      h1, h2, h3, h4, h5, h6 { color: $darkblue; }
+    }
+
     .white {
       h1, h2, h3, h4, h5, h6 { color: white; }
     }
+
+    .on-dark {
+      background: $dark;
+      padding: 10px;
+      h1, h2, h3, h4, h5, h6 { text-shadow: 5px 5px $dark; }
+    }
+
     .callout {
       h1, h2, h3, h4, h5, h6 { color: $red; }
     }
@@ -44,6 +55,17 @@ $inverse-highlight: white;
       height: 100%;
       font-size: 1.4em;
       line-height: 1.4em;
+      max-height: 800px !important;
+
+      &.with-callout {
+        background-color: $dark;
+        color: #999;
+
+        span.callout {
+          opacity: 1.0;
+          color: white;
+        }
+      }
     }
   }
   table {

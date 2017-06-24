@@ -12,15 +12,11 @@
 ## Who am I?
 
 ---
-<!-- .slide: class="white" data-background="#17BEBB" -->
+<!-- .slide: class="white" data-background="#2E282A" -->
 ## Ari Lerner
 
 * [ng-book 2](https://www.ng-book.com/2)
 * [fullstackreact](https://fullstackreact.com)
-
----
-
-Discount code at the end
 
 ---
 
@@ -31,9 +27,13 @@ Discount code at the end
 
 ---
 
+<!-- .slide: class="white" data-background-image="http://gifs.joelglovier.com/big-lebowski/what.gif" -->
+
 ## Why Blockchain at an Angular conference?
 
 ---
+
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/cvBvEztMAMd9u/giphy.gif" -->
 
 ## Revolution begets revolution
 
@@ -47,20 +47,26 @@ Discount code at the end
 
 ---
 
-### Build our **own cryptocurrency** and **visualize** it with Angular
+### Building our **own cryptocurrency** and **visualize** it with Angular
+
+---
+
+DEMO
 
 ---
 
 <!-- .slide: class="white" data-background="#76B041" -->
-## Have you heard of bitcoin?
+## Have you heard of crytpocurrencies like Bitcoin?
 
 ---
 
-Bitcoin is a currency that...
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/CGRGrltfvcd5C/giphy.gif" -->
+
+Bitcoin is a currency that is completely distributed and doesn't require a central authority to transfer wealth (like a bank)!
 
 ---
 
-And the blockchain is... the thing that enables this.
+And the blockchain is... the thing that enables this flow.
 
 ---
 
@@ -84,7 +90,19 @@ The blockchain is just a publicly available
 
 ---
 
+<!-- .slide: class="on-dark" data-background-image="http://gifs.joelglovier.com/bored/bored-joe-macmillan.gif" -->
+
 ... that is cleverly distributed across a peer-to-peer network of untrusted nodes around the world, that attempts to solve difficult computer science problems such as reconciliation and distributed consensus.
+
+---
+
+## Why?
+
+---
+
+## We can run a worldwide, trusted network of computers
+
+Without a central authority (or even a hosting company)
 
 ---
 
@@ -96,9 +114,11 @@ The blockchain is just a publicly available
 
 ## Three features
 
-* distributed in a p2p network
-* incentivize untrusted nodes
-* consensus
+<ul>
+<li class="fragment" data-autoslide="1000">distributed in a p2p network</li>
+<li class="fragment" data-autoslide="1000">incentivize untrusted nodes</li>
+<li class="fragment">consensus (getting everyone to agree)</li>
+</ul>
 
 ---
 
@@ -111,6 +131,7 @@ The blockchain is just a publicly available
 
 ---
 
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/l1IY0geomfz09dEB2/giphy.gif" -->
 ## We need a way to confirm interactions in a proveable way on unstrustworthy nodes
 
 ---
@@ -121,13 +142,10 @@ The blockchain is just a publicly available
 
 ## A hash is a function that can be used to map data of arbitrary size to data of fixed size.
 
-Input => random data of fixed length
-
 ---
 
-* Any input
-* Same-length output
-* Unlikely collision events (two inputs to share an output) -- uniquely identify
+* Any input -> Same-length output
+* unique identification
 * One-way (can't de-hash a hash)
 
 ---
@@ -145,17 +163,27 @@ Input => random data of fixed length
 
 ---
 
-## So why do we use these hashes?
+Hashes look familiar, eh? You've worked with merkle trees before if you've ever used
+
+---
+
+## Git
+
+---
+
+<!-- .slide: class="on-dark" data-background-image="http://gifs.joelglovier.com/excited/bill-murray-toast.gif" -->
+
+Now you know blockchain! Not too difficult, eh?
+
+---
+
+## Why do we use hashes?
 
 ---
 
 ## Merkle tree
 
-With some extra information, we can hash them all together and hash them again to create a Merkle tree.
-
----
-
-## What the heck is a Merkle Tree?
+A _very_ peculiar data-structure indeed.
 
 ---
 
@@ -163,11 +191,13 @@ A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
 
-Say we have a block which contains a few pieces of information and we want to guarantee safety on an untrustworthy network...
+Say we have a block which contains a few pieces of information and we want to guarantee safety on the untrusted peer-to-peer network...
 
 ---
 
-How do we know that the piece of data we want is the one that is given.
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/VSiNfsl8VIRIk/giphy.gif" -->
+
+How do we know that the piece of data we are getting is the one that is given and hasn't been corrupted or stolen in some way?
 
 ---
 
@@ -179,24 +209,8 @@ In other words, how can we trust the network?
 
 ---
 
-Look familiar? You've worked with merkle trees before!
-
----
-
-This is `git`!
-
----
-
 <!-- .slide: class="white" data-background="#17BEBB" -->
 ### Merkle proof
-
----
-
-Suppose there is a large database and the contents are stored in a merkle tree where the root hash is public and trusted.
-
----
-
-We can look up data in the database and verify it's trustworthy.
 
 ---
 
@@ -250,11 +264,9 @@ Every node in the network is essentially racing to complete a very difficult, ra
 
 ---
 
+<!-- .slide: class="on-dark" data-background-image="http://gifs.joelglovier.com/thank-you/thankyou-sandler-farley.gif" -->
+
 I'll spare you the gritty details
-
----
-
-[Insert mining demo here]
 
 ---
 
@@ -272,22 +284,6 @@ Additionally, it incentivizes users to pay a transaction fee to get work done.
 
 <!-- .slide: class="white" data-background="#E4572E" -->
 ## Consensus
-
----
-
-There needs to be a way for nodes to know what data is valid...
-
----
-
-When the problem is solved, it's broadcasted across the network for each node to merkle-proof the theory.
-
----
-
-Each node accepts or rejects the transaction of the entire tree and the node becomes the next canonical node.
-
----
-
-Who gets to add another block? A proof of work consensus protocol where computers race to finish a really hard problem.
 
 ---
 
@@ -328,7 +324,7 @@ Instead, let's look at the _next-gen_ version of Bitcoin, another currency:
 
 ---
 
-Ethereum is also another currency, with some differences of bitcoin.
+Ethereum is another network built on the blockchain, with some major improvements on bitcoin.
 
 ---
 
@@ -359,10 +355,6 @@ Contracts can:
 
 ---
 
-All these operations are public
-
----
-
 What kind of things can we do?
 
 * Crowdfunding
@@ -386,20 +378,28 @@ Using a TypeScript-like language called
 
 ---
 
-```javascript
-pragma solidity ^0.4.10
-
-contract NGCoin {
-	mapping (address => uint) balances;
-
-	function NGCoin() {
-		balances[tx.origin] = 10000;
-	}
-}
-
-```
+In another file (outside Angular)...
 
 ---
+
+<pre><code langage="typescript" data-noescape data-trim>
+pragma solidity ^0.4.10
+
+<fragment class="fragment">
+contract MetaCoin {
+  <fragment class="fragment">mapping (address => uint) balances;</fragment>
+
+  <fragment class="fragment">
+  function MetaCoin() {
+    balances[tx.origin] = 10000;
+  }</fragment>
+}
+</fragment>
+</code></pre>
+
+---
+
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif" -->
 
 ### Doesn't do much
 
@@ -429,32 +429,13 @@ We need to compile it and share it with the blockchain
 
 ---
 
-Let's start a private network using a tool called `testrpc`
+
+With a local version of the blockchain, let's compile and migrate our contract (using a tool called `truffle`) so that it lives on the network
 
 ---
 
 ```bash
-$ testrpc --blocktime 2
-```
-
----
-
-With our blockchain, let's compile our contract (using a tool called `truffle`)
-
----
-
-```bash
-truffle compile
-```
-
----
-
-And add it to the blockchain
-
----
-
-```bash
-truffle migrate
+truffle compile && truffle migrate
 ```
 
 ---
@@ -463,21 +444,21 @@ truffle migrate
 
 ---
 
-```bash
-$ ng new ngwallet
-```
+<!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/l0Iy6Noq5VsQzKxA4/giphy.gif" -->
+
+## Which is surprisingly easy
 
 ---
 
-## Interact with the Blockchain
+## How do we...
+
+---
+
+## Interact with the Blockchain in **TypeScript**?
 
 ---
 
 We'll work with the blockchain through a module called `web3`
-
----
-
-## How?
 
 ---
 
@@ -487,18 +468,17 @@ Blockchain tools, like `testrpc` implement an RPC protocol that we can talk to w
 
 ---
 
-```typescript
-import { Injectable } from '@angular/core';
-
+<pre><code langage="typescript" data-noescape data-trim>
+<fragment data-autoslide="1000" class="fragment">import { Injectable } from '@angular/core';</fragment>
+<fragment data-autoslide="1000" class="fragment">
 import * as Web3 from 'web3'
-import * as contract from 'truffle-contract'
-
-@Injectable()
+import * as contract from 'truffle-contract' </fragment>
+<fragment class="fragment">@Injectable()
 export class Web3Service {
   public web3: any;
   public account: any;
-}
-```
+}</fragment>
+</code></pre>
 
 ---
 
@@ -506,17 +486,19 @@ export class Web3Service {
 
 ---
 
-```typescript
-export class Web3Service {
-  constructor() {
+<pre><code langage="typescript" data-noescape data-trim>
+<fragment data-autoslide="1000" class="fragment">export class Web3Service {
+  <fragment data-autoslide="1000" class="fragment">constructor() {
+    <fragment data-autoslide="1000" class="fragment">
     // Define connection
     const provider = new Web3.providers
-    .HttpProvider("http://localhost:8545")
+    .HttpProvider("http://localhost:8545")</fragment>
+    <fragment class="fragment">
     // Connect
-    this.web3 = new Web3(provider);
-  }
-}
-```
+    this.web3 = new Web3(provider);</fragment>
+  }</fragment>
+}</fragment>
+</code></pre>
 
 ---
 
@@ -527,40 +509,27 @@ export class Web3Service {
 ```typescript
 export class Web3Service {
   async getAccount(i?:number) {
-    if (!this.account) {
-      const accounts = await this.getAccounts();
-      i = i || 0;
-      this.account = accounts[i];
-    }
-    return this.account;
+    const accounts = await this.getAccounts();
+    return accounts[i || 0];
   }
 }
 ```
 
 ---
 
-## Let's check out balance
-
----
-
-```bash
-ng g service metacoin
-```
-
----
-
-```typescript
-import { Injectable } from '@angular/core';
+<pre><code langage="typescript" data-noescape data-trim>
+<fragment data-autoslide="1000" class="fragment">import { Injectable } from '@angular/core';
 import { Web3Service } from '../services/web3.service'
 import * as contract from 'truffle-contract'
-
+<fragment data-autoslide="1000" class="fragment">
 const metacoinArtifacts =
   require('./build/contracts/MetaCoin.json')
+<fragment class="fragment">
 @Injectable()
 export class MetacoinService {
   public MetaCoin = contract(metacoinArtifacts)
-}
-```
+}</fragment></fragment></fragment>
+</code></pre>
 
 ---
 
@@ -580,7 +549,7 @@ export class MetacoinService {
 
 ---
 
-## Checking our balance in TypeScript
+## Checking our balance in our service
 
 ---
 
@@ -606,69 +575,6 @@ export class MetacoinService {
 
 ---
 
-## Let's add transactions
-
----
-
-### Back to the smart contract
-
----
-
-```typescript
-contract MetaCoin {
-  mapping (address => uint) balances;
-  // ...
-	function sendCoin(address _to, uint _value) {
-    // Check if the sender has enough
-    // and that there is no room for overflow
-    if (balances[msg.sender] < _value ||
-        balances[_to] + _value < balances[_to]) {
-        throw;
-    }
-    // Add and subtract balances
-    balances[msg.sender] -= _value;
-    balances[_to] += _value;
-	}
-}
-```
-
----
-
-## Simple, right?
-
----
-
-We can call this directly in Angular
-
----
-
-## Metacoin service
-
-```typescript
-export class MetacoinService {
-  transaction(addr: string, amount: number) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        // Get the contract instance
-        const deployed = await this.MetaCoin.deployed();
-        const from = await this.web3.getAccount();
-        // Send the coin (async)
-        resolve(
-          deployed.sendCoin(addr, amount, { from }))
-      } catch (e) {
-        reject(e);
-      }
-    })
-  }
-}
-```
-
----
-
-![](content/images/sent.png)
-
----
-
 <!-- .slide: class="white" data-background="#29335C" -->
 ## Events
 
@@ -690,7 +596,9 @@ In our Smart Contract, we can trigger an event
 
 ---
 
-```typescript
+### In our Solidity contract
+
+<pre><code data-trim data-noescape class="with-callout" language="typescript">
 contract MetaCoin {
   mapping (address => uint) balances;
   // ...
@@ -706,10 +614,10 @@ contract MetaCoin {
     balances[_to] += _value;
 
     // Notify that the transfer took place
-    Transfer(msg.sender, _to, _value);
+    <span class="callout">Transfer(msg.sender, _to, _value);</span>
 	}
 }
-```
+</code></pre>
 
 ---
 
@@ -717,19 +625,23 @@ Our client registers a listener to these events
 
 ---
 
-```typescript
-this.MetaCoin.deployed()
-  .then(async metaCoin => {
+### In our TypeScript/Angular app
+
+<pre><code data-trim data-noescape language="typescript">
+<fragment data-autoslide="1000" class="fragment">
+this.MetaCoin.deployed()<fragment data-autoslide="1000" class="fragment">
+  .then(async metaCoin => {<fragment data-autoslide="1000" class="fragment">
     // Register a listener for the Transfer event
     metaCoin.allEvents((err, evt) => {
-      if (evt && evt.event === 'Transfer') {
-
+      <fragment data-autoslide="1000" class="fragment">
+      if (evt && evt.event === 'Transfer') {<fragment class="fragment">
         // Update the balance
         this.getBalance()
-      }
-    })
-  })
-```
+      </fragment>
+      }</fragment>
+    })</fragment>
+  })</fragment>
+</code></pre>
 
 ---
 
@@ -737,7 +649,7 @@ Now we have a reactive front-end... sound familiar?
 
 ---
 
-Connecting it through RxJS:
+RxJS
 
 ---
 
@@ -765,5 +677,7 @@ export class MetacoinService {
 ## Questions?
 
 ---
+
+<!-- .slide: data-background-image="http://gifs.joelglovier.com/clap/applause.gif" -->
 
 ## Thanks
