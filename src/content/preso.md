@@ -1,15 +1,18 @@
-## Angular, The blockchain, and you
+## Angular, the blockchain, and you
 
 ---
 
-## First things first
+<!-- .slide: data-background-image="content/images/breakfast.jpg" -->
+
+## First, a quick thank you
 
 ---
 
+<!-- .slide: class="white" data-background="#17BEBB" -->
 ## Who am I?
 
 ---
-
+<!-- .slide: class="white" data-background="#17BEBB" -->
 ## Ari Lerner
 
 * [ng-book 2](https://www.ng-book.com/2)
@@ -17,31 +20,56 @@
 
 ---
 
-![](content/images/ginger.png)
+Discount code at the end
 
 ---
 
-### part-theory/part-code
+## This talk is
+
+### theory
+### code
 
 ---
 
-### What are we talking about?
+## Why Blockchain at an Angular conference?
 
 ---
 
-Building your **own cryptocurrency** and **visualizing** it through an Angular app!
+## Revolution begets revolution
+
+[Will Blockchain(s) Eat the Marketplace Stack?](https://medium.com/point-nine-news/will-blockchain-s-eat-the-marketplace-stack-cf5952889aa0)
+[How The Blockchain Will Transform Everything From Banking To Government To Our Identities](https://www.forbes.com/sites/laurashin/2016/05/26/how-the-blockchain-will-transform-everything-from-banking-to-government-to-our-identities/#1d076c0e558e)
+[How blockchains could change the world](http://www.mckinsey.com/industries/high-tech/our-insights/how-blockchains-could-change-the-world)
 
 ---
 
+## So what are we doing?
+
+---
+
+### Build our **own cryptocurrency** and **visualize** it with Angular
+
+---
+
+<!-- .slide: class="white" data-background="#76B041" -->
 ## Have you heard of bitcoin?
 
 ---
 
+Bitcoin is a currency that...
+
+---
+
+And the blockchain is... the thing that enables this.
+
+---
+
+<!-- .slide: class="white" data-background="#76B041" -->
 ## Have you heard of the blockchain?
 
 ---
 
-Bitcoin is **powered** by the Blockchain
+## Bitcoin is **powered** by the Blockchain
 
 ---
 
@@ -49,11 +77,8 @@ Bitcoin is **powered** by the Blockchain
 
 ---
 
-Although it sounds fancy...
-
----
-
-The blockchain is just an
+<!-- .slide: class="white" data-background="#E4572E" -->
+The blockchain is just a publicly available
 
 ## ordered ledger of facts
 
@@ -69,29 +94,32 @@ The blockchain is just an
 
 ---
 
+## Three features
+
 * distributed in a p2p network
 * incentivize untrusted nodes
 * consensus
 
 ---
 
+<!-- .slide: class="white" data-background="#E4572E" -->
 ## Distributed in a p2p network
 
 ---
 
-We need a way to confirm transactions in a proveable way on unstrustworthy nodes
+<video data-autoplay src="content/videos/distributed.mov"></video>
 
 ---
 
-## Merkle trees
+## We need a way to confirm interactions in a proveable way on unstrustworthy nodes
 
 ---
 
-Before we get there, let's talk about **hashes**
+## Before we get there, let's talk about **hashes**
 
 ---
 
-A hash is a function that can be used to map data of arbitrary size to data of fixed size.
+## A hash is a function that can be used to map data of arbitrary size to data of fixed size.
 
 Input => random data of fixed length
 
@@ -99,7 +127,8 @@ Input => random data of fixed length
 
 * Any input
 * Same-length output
-* Unlikely collision events (two inputs to share an output)
+* Unlikely collision events (two inputs to share an output) -- uniquely identify
+* One-way (can't de-hash a hash)
 
 ---
 
@@ -107,11 +136,16 @@ Input => random data of fixed length
 
 ---
 
+## So what does a hash look like?
+
+---
+
 <!-- .slide: data-state="hashes" -->
-
-SHA1 examples:
-
 <div id="output"></div>
+
+---
+
+## So why do we use these hashes?
 
 ---
 
@@ -129,18 +163,31 @@ A Merkle tree refers to a way to store and hash a large amount of data.
 
 ---
 
-With a large number of _chunks of data_ split into buckets where each _bucket_ contains a little amount of data, taking the hash of each bucket up the tree gives us a root hash.
+Say we have a block which contains a few pieces of information and we want to guarantee safety on an untrustworthy network...
 
 ---
 
-<svg id="treea" class="tree"></svg>
+How do we know that the piece of data we want is the one that is given.
 
 ---
 
-Given the root hash, when we change one file, it changes the entire branch given a root hash, we can verify any updates/changes.
+In other words, how can we trust the network?
 
 ---
 
+<video data-autoplay src="content/videos/mtree.mov"></video>
+
+---
+
+Look familiar? You've worked with merkle trees before!
+
+---
+
+This is `git`!
+
+---
+
+<!-- .slide: class="white" data-background="#17BEBB" -->
 ### Merkle proof
 
 ---
@@ -149,31 +196,7 @@ Suppose there is a large database and the contents are stored in a merkle tree w
 
 ---
 
-We can look up a position in the database and verify it's trustworthy.
-
----
-
-We can _authenticate_ a small amount is real.
-
----
-
-Ever use git?
-
----
-
-You're using a merkle tree!
-
----
-
-We have _all_ the files in our project, we can checkout a hash at any point in history, we can check out just a single file, etc. etc. We can see the _one-line_ difference. We can _prove_ we're only changing a single line.
-
----
-
-## Blockchains
-
----
-
-When we add or update a node, we can prove this at any point.
+We can look up data in the database and verify it's trustworthy.
 
 ---
 
@@ -181,11 +204,7 @@ It matters because...
 
 ---
 
-This provides a way for us to download a small amount of data instead of every single transaction (which could be infinite...) even on untrusted nodes.
-
----
-
-Instead, a small, lightweight client can download a chain of block headers which contain a few pieces of data
+This provides a way for us to download a small amount of data instead of every single transaction even on untrusted nodes.
 
 ---
 
@@ -193,6 +212,28 @@ As long as we have a way to get the root hash, we can _prove_ the data.
 
 ---
 
+<!-- .slide: class="white" data-background="#17BEBB" -->
+## How do we get a trusted root hash?
+
+---
+
+Nodes only accept root hashes from trusted sources.
+
+---
+
+We have the root hash from our friend and we want to verify the hash...
+
+---
+
+We'll reconstruct the root hash and recompute the tree. If it's the same, we have a trusted root hash!
+
+---
+
+The new root hash is accepted and we can move on.
+
+---
+
+<!-- .slide: class="white" data-background="#E4572E" -->
 ## incentivize untrusted nodes
 
 ---
@@ -213,6 +254,10 @@ I'll spare you the gritty details
 
 ---
 
+[Insert mining demo here]
+
+---
+
 When a node successfully completes the problem and submits it to the network, it is rewarded and every nodes starts over again to get to the next one.
 
 ---
@@ -225,6 +270,7 @@ Additionally, it incentivizes users to pay a transaction fee to get work done.
 
 ---
 
+<!-- .slide: class="white" data-background="#E4572E" -->
 ## Consensus
 
 ---
@@ -249,6 +295,10 @@ Each node can compute the Merkle proof to verify the state of a transaction on t
 
 ---
 
+Consensus protocol (proof of work) race from one cpu to one vote.
+
+---
+
 Distributed systems are designed to prevent any single computer to get too much power
 
 ---
@@ -269,19 +319,20 @@ Every hash on the entire blockchain needs to be downloaded to get this value
 
 ---
 
-Instead, let's look at the _next-gen_ version of Bitcoin.
+Instead, let's look at the _next-gen_ version of Bitcoin, another currency:
 
 ---
 
+<!-- .slide: class="white" data-background="#17BEBB" -->
 ## Ethereum
 
 ---
 
-Merkle trees are great for lists, but not so great for key-value pairs (think JSON objects). The state of the ethereum blockchain is essentially an object where keys are addresses and values are amount declarations using a Patricia-Merkle tree.
+Ethereum is also another currency, with some differences of bitcoin.
 
 ---
 
-Instead of transactions, Ethereum records computer operations.
+<video data-autoplay src="content/videos/eth.mov"></video>
 
 ---
 
@@ -289,25 +340,7 @@ We can track any state changes. From this, we get a hash (and we're back to the 
 
 ---
 
-Blocks of operations contain:
-
-* Reward paid
-* Time of transaction
-* List of transactions
-* Gas (fee)
-* Hash
-* ...
-
----
-
-Each interaction is cryptographically signed (a transaction) by the user and using this, we can interact with a program called **smart contracts**.
-
----
-
-Note, we have to pay for each interaction
-
----
-
+<!-- .slide: class="white" data-background="#17BEBB" -->
 ## Smart contracts
 
 ---
@@ -339,6 +372,7 @@ What kind of things can we do?
 
 ---
 
+<!-- .slide: class="white" data-background="#29335C" -->
 ## Let's make one!
 
 ---
@@ -347,6 +381,7 @@ Using a TypeScript-like language called
 
 ---
 
+<!-- .slide: class="white" data-background="#29335C" -->
 ### Solidity
 
 ---
@@ -634,6 +669,7 @@ export class MetacoinService {
 
 ---
 
+<!-- .slide: class="white" data-background="#29335C" -->
 ## Events
 
 ---
@@ -721,7 +757,8 @@ export class MetacoinService {
 
 ---
 
-A perfect pair!
+<!-- .slide: class="white" data-background="#E4572E" -->
+## A perfect pair!
 
 ---
 

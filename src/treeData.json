@@ -11,11 +11,7 @@
       { "name": "D" },
       { "name": "E",
         "children":[
-          { "name": "F",
-            "children":[
-              { "name": "G" }
-            ]
-          }
+          { "name": "F" }
         ] }
     ]
   }

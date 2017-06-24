@@ -18,6 +18,7 @@ Reveal.initialize({
   transition: 'none',
   progress: false,
   pdfMaxPagesPerSlide: 1,
+  controls: false,
   markdown: {
     renderer: new marked.Renderer(),
     gfm: true,
@@ -28,6 +29,9 @@ Reveal.initialize({
     smartLists: true,
     smartypants: true
   },
+  // math: {
+		// mathjax: '/MathJax.js',
+	// },
   dependencies: [
     // Cross-browser shim that fully implements classList
     {

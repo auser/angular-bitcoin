@@ -53,7 +53,10 @@ module.exports = {
   entry: {
     vendor: [
       path.join(node_modules_path, 'reveal.js/lib/js/head.min.js'),
-      path.join(node_modules_path, 'reveal.js/js/reveal.js')
+      path.join(node_modules_path, 'reveal.js/js/reveal.js'),
+      // path.join(node_modules_path, 'mathjax/latest.js'),
+      // path.join(node_modules_path, 'mathjax/extensions/MathMenu.js'),
+      // path.join(node_modules_path, 'mathjax/extensions/MathZoom.js'),
     ],
     config: './js/config.js',
     app: './main.js',
@@ -78,7 +81,7 @@ module.exports = {
       { test: /\.json$/, loaders: ['json-loader'] },
       { test: /\.(eot|svg|ttf|woff|woff2)$/, loaders: ['file-loader'] },
       {
-        test: /\.png$/,
+        test: /\.(png|mov|mp4)$/,
         include: path.join(__dirname, 'src'),
         use: [
           { loader: 'file-loader' },

@@ -13,30 +13,59 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Hashes from 'jshashes'
+import objectHash from 'object-hash'
 
 Reveal.addEventListener( 'hashes', function() {
 	// TODO: Sprinkle magic
   const SHA1 = new Hashes.SHA1
 
-  const phrases = [
-    'Hello world ',
-    'Hello world!',
-    'Ari'
-  ]
-  const messages = phrases.reduce((sum, phrase) => {
-    sum[phrase] = padLeft(SHA1.hex(phrase), 20, 's')
-    return sum
-  }, {})
-  const Item = ({ k, value }) => (<tr><td>{k}</td><td colSpan="18">{value}</td></tr>)
+  class HashInput extends React.Component {
+    constructor(props) {
+      super(props)
+
+      const input = 'hello world'
+      this.state = {
+        input,
+        hash: SHA1.hex(input)
+      }
+    }
+
+    onChange(evt) {
+      const input = evt.target.value
+      this.setState({
+        input,
+        hash: SHA1.hex(input)
+      })
+    }
+
+    render() {
+      return (
+        <div className="hashes">
+          <input value={this.state.input} className="input" type="text" onChange={this.onChange.bind(this)} />
+          <span>{this.state.hash}</span>
+        </div>
+      )
+    }
+  }
+
   ReactDOM.render(
-    <table className="table"><tbody>
-      {Object.keys(messages).map(key => (
-        <Item key={key} k={key} value={messages[key]} />
-      ))}
-    </tbody></table>,
+    <HashInput />,
     document.querySelector("#output")
   )
 }, false );
+
+Reveal.addEventListener('miner', function() {
+  console.log('yay')
+
+  function detect(hash, difficulty) {
+    for (var i = 0, b = hash.length; i < b; i ++) {
+        if (hash[i] !== '0') {
+            break;
+        }
+    }
+    return i === difficulty;
+  }
+})
 
 
 import './js/app.js';
