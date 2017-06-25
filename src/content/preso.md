@@ -674,6 +674,8 @@ export class MetacoinService {
 
 ---
 
+<!-- .slide: class="on-dark" data-background-image="content/images/camel.jpg" -->
+
 ## Questions?
 
 ---
