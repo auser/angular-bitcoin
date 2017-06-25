@@ -16,7 +16,9 @@
 ## Ari Lerner
 
 * [ng-book 2](https://www.ng-book.com/2)
-* [fullstackreact](https://fullstackreact.com)
+* [Modern AngularJS](https://www.ng-book.com/modern-ng1)
+* [Fullstackreact](https://fullstackreact.com)
+* [Zero to Deep Learning](https://zerotodeeplearning.com)
 
 ---
 
@@ -56,7 +58,7 @@ DEMO
 ---
 
 <!-- .slide: class="white" data-background="#76B041" -->
-## Have you heard of crytpocurrencies like Bitcoin?
+## Have you heard of cryptocurrencies like Bitcoin?
 
 ---
 
