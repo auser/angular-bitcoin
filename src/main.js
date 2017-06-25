@@ -13,12 +13,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Hashes from 'jshashes'
-import objectHash from 'object-hash'
+
+const SHA1 = new Hashes.SHA1
 
 Reveal.addEventListener( 'hashes', function() {
-	// TODO: Sprinkle magic
-  const SHA1 = new Hashes.SHA1
-
   class HashInput extends React.Component {
     constructor(props) {
       super(props)
@@ -54,17 +52,72 @@ Reveal.addEventListener( 'hashes', function() {
   )
 }, false );
 
-Reveal.addEventListener('miner', function() {
-  console.log('yay')
 
-  function detect(hash, difficulty) {
-    for (var i = 0, b = hash.length; i < b; i ++) {
-        if (hash[i] !== '0') {
-            break;
-        }
+function decodeHex(s) {
+    // utf8 to latin1
+    var s = unescape(encodeURIComponent(s))
+    var h = ''
+    for (var i = 0; i < s.length; i++) {
+        h += s.charCodeAt(i).toString(16)
     }
-    return i === difficulty;
+    return h
+}
+class Block {
+    constructor(index, previousHash, timestamp, data, hash) {
+        this.index = index;
+        this.previousHash = previousHash.toString();
+        this.timestamp = timestamp;
+        this.data = data;
+        this.hash = hash.toString();
+    }
+}
+
+Reveal.addEventListener('miner', function() {
+  let getGenesisBlock = () => {
+    return new Block(0, "0", 1465154705, "my genesis block", "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7");
+  };
+
+  let blockchain = [getGenesisBlock()];
+  let stop = false;
+  const setAndGenerate = (fn, stop, timeout = 100) => {
+    if (!stop) {
+      setTimeout(function() {
+        fn()
+      }, timeout);
+    }
   }
+  const calculateHash = (idx, prevHash, timestamp, data) => {
+    return SHA1.hex(idx + prevHash + timestamp + data).toString()
+  }
+
+  const getLatestBlock = () => blockchain[blockchain.length - 1]
+  const generateNextBlock = () => {
+    const previousBlock = getLatestBlock()
+    const blockData = {}.toString()
+    let nextIndex = previousBlock.index + 1;
+    let nextTimestamp = new Date().getTime() / 1000;
+    let nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData);
+    return new Block(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash);
+  }
+  let idx = 0
+
+  const inner = document.querySelector('#output2')
+  const targetBlock = "000000000000000117c80378b8da0e33559b5997f2ad55e2f7d18ec1975b9717"
+  const go = () => {
+    setAndGenerate(() => {
+      const blk = generateNextBlock()
+      inner.innerHTML = `${blk.timestamp}: ${blk.hash} < ${targetBlock}`
+      if (idx >= 100) {
+        stop = true
+      } else {
+        idx += 1
+        go()
+      }
+    })
+  }
+
+  go()
+
 })
 
 

@@ -270,6 +270,14 @@ I'll spare you the gritty details
 
 ---
 
+<!-- .slide: data-state="miner" -->
+
+## What mining looks like...
+
+<div id="output2"></div>
+
+---
+
 When a node successfully completes the problem and submits it to the network, it is rewarded and every nodes starts over again to get to the next one.
 
 ---
