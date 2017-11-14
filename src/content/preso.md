@@ -2,42 +2,21 @@
 
 ---
 
-<!-- .slide: data-background-image="content/images/breakfast.jpg" -->
+<!-- .slide: class="on-dark" data-background="#5eafe1" -->
 
-## First, a quick thank you
-
----
-
-<!-- .slide: class="white" data-background="#17BEBB" -->
-## Who am I?
-
----
-<!-- .slide: class="white" data-background="#2E282A" -->
-## Ari Lerner
-
-* [ng-book 2](https://www.ng-book.com/2)
-* [Modern AngularJS](https://www.ng-book.com/modern-ng1)
-* [Fullstackreact](https://fullstackreact.com)
-* [Zero to Deep Learning](https://zerotodeeplearning.com)
-
----
-
-## This talk is
-
-### theory
-### code
+<h1><a href="https://newline.co">newline.co</a></h1>
 
 ---
 
 <!-- .slide: class="white" data-background-image="http://gifs.joelglovier.com/big-lebowski/what.gif" -->
 
-## Why Blockchain at an Angular conference?
+## Why Blockchain?
 
 ---
 
 <!-- .slide: class="on-dark" data-background-image="https://media.giphy.com/media/cvBvEztMAMd9u/giphy.gif" -->
 
-## Revolution begets revolution
+## The blockchain is Web 3.0
 
 [Will Blockchain(s) Eat the Marketplace Stack?](https://medium.com/point-nine-news/will-blockchain-s-eat-the-marketplace-stack-cf5952889aa0)
 [How The Blockchain Will Transform Everything From Banking To Government To Our Identities](https://www.forbes.com/sites/laurashin/2016/05/26/how-the-blockchain-will-transform-everything-from-banking-to-government-to-our-identities/#1d076c0e558e)
@@ -45,20 +24,8 @@
 
 ---
 
-## So what are we doing?
-
----
-
-### Building our **own cryptocurrency** and **visualize** it with Angular
-
----
-
-DEMO
-
----
-
 <!-- .slide: class="white" data-background="#76B041" -->
-## Have you heard of cryptocurrencies like Bitcoin?
+## Heard of Bitcoin?
 
 ---
 
@@ -72,11 +39,6 @@ And the blockchain is... the thing that enables this flow.
 
 ---
 
-<!-- .slide: class="white" data-background="#76B041" -->
-## Have you heard of the blockchain?
-
----
-
 ## Bitcoin is **powered** by the Blockchain
 
 ---
@@ -86,7 +48,7 @@ And the blockchain is... the thing that enables this flow.
 ---
 
 <!-- .slide: class="white" data-background="#E4572E" -->
-The blockchain is just a publicly available
+The blockchain is just a publicly accessible
 
 ## ordered ledger of facts
 
@@ -114,7 +76,7 @@ Without a central authority (or even a hosting company)
 
 ---
 
-## Three features
+## Three features we'll explore
 
 <ul>
 <li class="fragment" data-autoslide="1000">distributed in a p2p network</li>
@@ -175,17 +137,11 @@ Hashes look familiar, eh? You've worked with merkle trees before if you've ever 
 
 <!-- .slide: class="on-dark" data-background-image="http://gifs.joelglovier.com/excited/bill-murray-toast.gif" -->
 
-Now you know blockchain! Not too difficult, eh?
-
----
-
-## Why do we use hashes?
+Hashes are the root of the blockchain
 
 ---
 
 ## Merkle tree
-
-A _very_ peculiar data-structure indeed.
 
 ---
 
@@ -203,7 +159,7 @@ How do we know that the piece of data we are getting is the one that is given an
 
 ---
 
-In other words, how can we trust the network?
+In other words, how can we trust data on the network?
 
 ---
 
@@ -325,7 +281,7 @@ Every hash on the entire blockchain needs to be downloaded to get this value
 
 ---
 
-Instead, let's look at the _next-gen_ version of Bitcoin, another currency:
+Instead, let's look at the _next-gen_ blockchain:
 
 ---
 
@@ -335,10 +291,6 @@ Instead, let's look at the _next-gen_ version of Bitcoin, another currency:
 ---
 
 Ethereum is another network built on the blockchain, with some major improvements on bitcoin.
-
----
-
-<video data-autoplay src="content/videos/eth.mov"></video>
 
 ---
 
@@ -388,19 +340,15 @@ Using a TypeScript-like language called
 
 ---
 
-In another file (outside Angular)...
-
----
-
 <pre><code langage="typescript" data-noescape data-trim>
 pragma solidity ^0.4.10
 
 <fragment class="fragment">
-contract MetaCoin {
+contract NGCoin {
   <fragment class="fragment">mapping (address => uint) balances;</fragment>
 
   <fragment class="fragment">
-  function MetaCoin() {
+  function NgCoin() {
     balances[tx.origin] = 10000;
   }</fragment>
 }
@@ -413,7 +361,7 @@ contract MetaCoin {
 
 ### Doesn't do much
 
-just keeps 10000 shares in a single account
+just keeps an initialSupply of shares in a single account
 
 ---
 
@@ -532,12 +480,12 @@ export class Web3Service {
 import { Web3Service } from '../services/web3.service'
 import * as contract from 'truffle-contract'
 <fragment data-autoslide="1000" class="fragment">
-const metacoinArtifacts =
-  require('./build/contracts/MetaCoin.json')
+const ngcoinArtifacts =
+  require('./build/contracts/NgCoin.json')
 <fragment class="fragment">
 @Injectable()
-export class MetacoinService {
-  public MetaCoin = contract(metacoinArtifacts)
+export class NgcoinService {
+  public NgCoin = contract(ngcoinArtifacts)
 }</fragment></fragment></fragment>
 </code></pre>
 
@@ -548,11 +496,11 @@ export class MetacoinService {
 ---
 
 ```typescript
-export class MetacoinService {
+export class NgcoinService {
   constructor(
     private web3: Web3Service
   ) {
-    this.MetaCoin.setProvider(this.web3.currentProvider());
+    this.NgCoin.setProvider(this.web3.currentProvider());
   }
 }
 ```
@@ -565,14 +513,14 @@ export class MetacoinService {
 
 
 ```typescript
-export class MetacoinService {
+export class NgcoinService {
   async getBalance() {
     // Get the coin instance
-    const metaCoin = await this.MetaCoin.deployed();
+    const ngCoin = await this.NgCoin.deployed();
     // Get the root account
     const account = await this.web3.getAccount(0);
     // Get the balance (costs nothing)
-    const balance = await metaCoin
+    const balance = await ngCoin
         .getBalance.call(account, { from: this.account })
     return balance;
   }
@@ -609,7 +557,7 @@ In our Smart Contract, we can trigger an event
 ### In our Solidity contract
 
 <pre><code data-trim data-noescape class="with-callout" language="typescript">
-contract MetaCoin {
+contract NGCoin {
   mapping (address => uint) balances;
   // ...
 	function sendCoin(address _to, uint _value) {
@@ -639,10 +587,10 @@ Our client registers a listener to these events
 
 <pre><code data-trim data-noescape language="typescript">
 <fragment data-autoslide="1000" class="fragment">
-this.MetaCoin.deployed()<fragment data-autoslide="1000" class="fragment">
-  .then(async metaCoin => {<fragment data-autoslide="1000" class="fragment">
+this.NgCoin.deployed()<fragment data-autoslide="1000" class="fragment">
+  .then(async ngCoin => {<fragment data-autoslide="1000" class="fragment">
     // Register a listener for the Transfer event
-    metaCoin.allEvents((err, evt) => {
+    ngCoin.allEvents((err, evt) => {
       <fragment data-autoslide="1000" class="fragment">
       if (evt && evt.event === 'Transfer') {<fragment class="fragment">
         // Update the balance
@@ -664,7 +612,7 @@ RxJS
 ---
 
 ```typescript
-export class MetacoinService {
+export class NgcoinService {
   private _balance = <BehaviorSubject<any>>new BehaviorSubject(0);
   public balance = this._balance.asObservable();
   // ...
